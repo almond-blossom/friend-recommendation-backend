@@ -1,6 +1,4 @@
-const service = require('./register.service');
-
-module.exports = async (req, res) => {
+module.exports = registerService => async (req, res) => {
   const {
     id,
     pass,
@@ -8,6 +6,6 @@ module.exports = async (req, res) => {
     code,
   } = req.body;
 
-  const result = await service.registerUser(id, pass, name, code);
+  const result = await registerService.registerUser(id, pass, name, code);
   res.sendStatus(result ? 200 : 400);
 };

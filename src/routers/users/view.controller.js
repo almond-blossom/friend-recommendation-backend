@@ -1,8 +1,6 @@
-const repository = require('../../repositories/users');
-
-module.exports = async (req, res) => {
+module.exports = usersRepository => async (req, res) => {
   const { id } = req.params;
-  const user = await repository.findUserById(id);
+  const user = await usersRepository.findUserById(id);
   if (!user) {
     res.sendStatus(404);
     return;
