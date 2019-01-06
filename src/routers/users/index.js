@@ -1,15 +1,18 @@
 const express = require('express');
 const usersRepository = require('../../repositories/users');
-const createUniqueCode = require('../../utils/create-code');
-const registerService = require('./register.service');
-const registerUser = require('./register.controller');
-const viewUser = require('./view.controller');
+const UniqueCodeService = require('./UniqueCodeService');
+const RegisterService = require('./RegisterService');
+const UserRegisterController = require('./UserRegisterController');
+const UserViewController = require('./UserViewController');
 
 module.exports = () => {
   const router = express.Router();
-  router.post('/users', registerUser(
-    registerService(usersRepository, createUniqueCode),
-  ));
-  router.get('/users/:id', viewUser(usersRepository));
+  const uniqueCodeService = new UniqueCodeService(usersRepository);
+  const registerService = new RegisterService(usersRepository, uniqueCodeService);
+  const registerController = new UserRegisterController(registerService);
+  const viewController = new UserViewController(usersRepository);
+
+  router.post('/users', (req, res) => registerController.handle(req, res));
+  router.get('/users/:id', (req, res) => viewController.handle(req, res));
   return router;
 };
