@@ -1,0 +1,21 @@
+version: '3'
+services:
+  friend-recommandation:
+    build: .
+    restart: always
+    ports:
+      - '5600:3000'
+      - '9228:9222'
+    volumes:
+      - .:/usr/src/app
+    environment:
+      TZ: 'Asia/Seoul'
+    command: [
+      'node_modules/.bin/nodemon',
+      '--ignore',
+      'dist/',
+      '--ext',
+      'ts,js',
+      '--exec',
+      'npm run build && npm run debug'
+    ]
