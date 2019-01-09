@@ -1,12 +1,13 @@
-const express = require('express');
-const usersRepository = require('../../repositories/users');
-const UniqueCodeService = require('./UniqueCodeService');
-const RegisterService = require('./RegisterService');
-const UserRegisterController = require('./UserRegisterController');
-const UserViewController = require('./UserViewController');
+import { Router } from 'express';
+import UsersRepository from '../../repositories/UsersRepository';
+import RegisterService from './RegisterService';
+import UniqueCodeService from './UniqueCodeService';
+import UserRegisterController from './UserRegisterController';
+import UserViewController from './UserViewController';
 
-module.exports = () => {
-  const router = express.Router();
+export default () => {
+  const router = Router();
+  const usersRepository = new UsersRepository();
   const uniqueCodeService = new UniqueCodeService(usersRepository);
   const registerService = new RegisterService(usersRepository, uniqueCodeService);
   const registerController = new UserRegisterController(registerService);

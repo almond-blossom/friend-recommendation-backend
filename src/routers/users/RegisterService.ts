@@ -1,12 +1,18 @@
+import UsersRepository from '../../repositories/UsersRepository';
+import UniqueCodeService from './UniqueCodeService';
+
 const crypto = require('crypto');
 
-module.exports = class RegisterService {
-  constructor(usersRepository, uniqueCodeService) {
+export default class RegisterService {
+  private usersRepository: UsersRepository;
+  private  uniqueCodeService: UniqueCodeService;
+
+  constructor(usersRepository: UsersRepository, uniqueCodeService: UniqueCodeService) {
     this.usersRepository = usersRepository;
     this.uniqueCodeService = uniqueCodeService;
   }
 
-  async registerUser(id, pass, name, code) {
+  async registerUser(id: String, pass: String, name: String, code: String) {
     if (!id || !pass || !name) return false;
     const user = await this.usersRepository.findUserById(id);
     if (user) return false;
@@ -14,17 +20,17 @@ module.exports = class RegisterService {
     const userCode = await this.uniqueCodeService.create();
     const newUser = await this.usersRepository.insertUser({
       id,
-      pass: encrypted,
       name,
+      pass: encrypted,
       code: userCode,
+      friends: [],
       cash: code ? 30 : 0,
     });
     if (!newUser) return false;
-
     if (code) {
       await this.usersRepository.insertFriendByCode(code, id);
       await this.usersRepository.updateCash(code, 30);
     }
     return true;
   }
-};
+}

@@ -1,9 +1,13 @@
-module.exports = class UserViewController {
-  constructor(usersRepository) {
+import UsersRepository from '../../repositories/UsersRepository';
+
+export default class UserViewController {
+  private usersRepository: UsersRepository;
+
+  constructor(usersRepository: UsersRepository) {
     this.usersRepository = usersRepository;
   }
 
-  async handle(req, res) {
+  async handle(req: any, res: any) {
     const { id } = req.params;
     const user = await this.usersRepository.findUserById(id);
     if (!user) {
@@ -18,4 +22,4 @@ module.exports = class UserViewController {
       cash: user.cash,
     });
   }
-};
+}

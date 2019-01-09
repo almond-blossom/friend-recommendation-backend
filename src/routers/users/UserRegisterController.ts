@@ -1,12 +1,13 @@
-module.exports = class UserRegisterController {
-  /**
-   * @param {RegisterService} registerService
-   */
-  constructor(registerService) {
+import RegisterService from './RegisterService';
+
+export default class UserRegisterController {
+  private registerService: RegisterService;
+
+  constructor(registerService: RegisterService) {
     this.registerService = registerService;
   }
 
-  async handle(req, res) {
+  async handle(req: any, res: any) {
     const {
       id,
       pass,
@@ -16,4 +17,4 @@ module.exports = class UserRegisterController {
     const result = await this.registerService.registerUser(id, pass, name, code);
     res.sendStatus(result ? 200 : 400);
   }
-};
+}
