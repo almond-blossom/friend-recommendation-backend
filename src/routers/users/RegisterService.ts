@@ -12,7 +12,7 @@ export default class RegisterService {
     this.uniqueCodeService = uniqueCodeService;
   }
 
-  async registerUser(id: String, pass: String, name: String, code: String) {
+  async registerUser(id: string, pass: string, name: string, code: string) {
     if (!id || !pass || !name) return false;
     const user = await this.usersRepository.findUserById(id);
     if (user) return false;

@@ -1,7 +1,7 @@
 const CODES = ['A', 'B', 'C', '1', '2', '3'];
 
 export default class RandomCodeGenerator {
-  generate(length: number = 2): String {
+  generate(length: number = 2): string {
     let coded = '';
     for (let i = 0; i < length; i += 1) {
       const index = Math.floor(

@@ -1,13 +1,14 @@
+import { Controller, Request, Response } from '../../core/Controller';
 import RegisterService from './RegisterService';
 
-export default class UserRegisterController {
+export default class UserRegisterController implements Controller {
   private registerService: RegisterService;
 
   constructor(registerService: RegisterService) {
     this.registerService = registerService;
   }
 
-  async handle(req: any, res: any) {
+  async handle(req: Request, res: Response) {
     const {
       id,
       pass,

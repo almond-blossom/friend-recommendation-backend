@@ -14,17 +14,17 @@ export default class UniqueCodeService {
    * @param code
    * @return if code not exists, returns empty string
    */
-  private async findCode(code: String): Promise<String> {
+  private async findCode(code: string): Promise<string> {
     const user = await this.usersRepository.findUserByCode(code);
     if (user) return '';
     return code;
   }
 
-  private async findUser(code?: String): Promise<String> {
+  private async findUser(code?: string): Promise<string> {
     return !code ? this.findUser(await this.findCode(this.randomCodeGenerator.generate())) : code;
   }
 
-  async create(): Promise<String> {
+  async create(): Promise<string> {
     return this.findUser();
   }
 }

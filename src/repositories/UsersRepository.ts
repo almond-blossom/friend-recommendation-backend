@@ -1,9 +1,9 @@
 interface User {
-  id: String;
-  pass: String;
-  name: String;
-  code: String;
-  friends: String[];
+  id: string;
+  pass: string;
+  name: string;
+  code: string;
+  friends: string[];
   cash: number;
 }
 
@@ -19,11 +19,11 @@ export default class UsersRepository {
     },
   ];
 
-  async findUserById(id: String) {
+  async findUserById(id: string) {
     return this.users.find(user => user.id === id);
   }
 
-  async findUserByCode(code: String) {
+  async findUserByCode(code: string) {
     return this.users.find(user => user.code === code);
   }
 
@@ -38,12 +38,12 @@ export default class UsersRepository {
     });
   }
 
-  async insertFriendByCode (code: String, newUserId: String) {
+  async insertFriendByCode (code: string, newUserId: string) {
     const user = await this.findUserByCode(code);
     user.friends.push(newUserId);
   }
 
-  async updateCash(code: String, cash: number) {
+  async updateCash(code: string, cash: number) {
     const user = await this.findUserByCode(code);
     user.cash += cash;
   }
