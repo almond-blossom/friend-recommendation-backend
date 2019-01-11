@@ -1,9 +1,9 @@
-import UsersRepository from '../../repositories/UsersRepository';
-import UniqueCodeService from './UniqueCodeService';
+import { UsersRepository } from '../../repositories/UsersRepository';
+import { UniqueCodeService } from './UniqueCodeService';
 
 const crypto = require('crypto');
 
-export default class RegisterService {
+export class RegisterService {
   private usersRepository: UsersRepository;
   private  uniqueCodeService: UniqueCodeService;
 

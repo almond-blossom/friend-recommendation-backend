@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import UsersRepository from '../../repositories/UsersRepository';
-import RegisterService from './RegisterService';
-import UniqueCodeService from './UniqueCodeService';
-import UserRegisterController from './UserRegisterController';
-import UserViewController from './UserViewController';
+import { UsersRepository } from '../../repositories/UsersRepository';
+import { RegisterService } from './RegisterService';
+import { UniqueCodeService } from './UniqueCodeService';
+import { UserRegisterController } from './UserRegisterController';
+import { UserViewController } from './UserViewController';
 
 export default () => {
   const router = Router();

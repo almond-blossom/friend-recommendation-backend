@@ -1,13 +1,6 @@
-interface User {
-  id: string;
-  pass: string;
-  name: string;
-  code: string;
-  friends: string[];
-  cash: number;
-}
+import { User } from '../models/User';
 
-export default class UsersRepository {
+export class UsersRepository {
   private users: User[] = [
     {
       id: 'test',

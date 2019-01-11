@@ -1,7 +1,7 @@
 import { Controller, Request, Response } from '../../core/Controller';
-import RegisterService from './RegisterService';
+import { RegisterService } from './RegisterService';
 
-export default class UserRegisterController implements Controller {
+export class UserRegisterController implements Controller {
   private registerService: RegisterService;
 
   constructor(registerService: RegisterService) {

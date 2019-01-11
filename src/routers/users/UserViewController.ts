@@ -1,7 +1,7 @@
 import { Controller, Request, Response } from '../../core/Controller';
-import UsersRepository from '../../repositories/UsersRepository';
+import { UsersRepository } from '../../repositories/UsersRepository';
 
-export default class UserViewController implements Controller {
+export class UserViewController implements Controller {
   private usersRepository: UsersRepository;
 
   constructor(usersRepository: UsersRepository) {

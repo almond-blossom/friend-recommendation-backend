@@ -1,7 +1,7 @@
-import UsersRepository from '../../repositories/UsersRepository';
-import RandomCodeGenerator from '../../utils/RandomCodeGenerator';
+import { UsersRepository } from '../../repositories/UsersRepository';
+import { RandomCodeGenerator } from '../../utils/RandomCodeGenerator';
 
-export default class UniqueCodeService {
+export class UniqueCodeService {
   private usersRepository: UsersRepository;
   private randomCodeGenerator: RandomCodeGenerator;
 
