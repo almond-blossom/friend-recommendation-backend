@@ -1,16 +1,16 @@
 import { Controller, Request, Response } from '../../core/Controller';
-import { UsersRepository } from '../../repositories/UsersRepository';
+import { UserRepository } from '../../repositories/UserRepository';
 
 export class UserViewController implements Controller {
-  private usersRepository: UsersRepository;
+  private userRepository: UserRepository;
 
-  constructor(usersRepository: UsersRepository) {
-    this.usersRepository = usersRepository;
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
   }
 
   async handle(req: Request, res: Response) {
     const { id } = req.params;
-    const user = await this.usersRepository.findUserById(id);
+    const user = await this.userRepository.findUserById(id);
     if (!user) {
       res.sendStatus(404);
       return;

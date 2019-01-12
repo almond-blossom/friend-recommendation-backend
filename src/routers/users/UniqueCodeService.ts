@@ -1,13 +1,13 @@
-import { UsersRepository } from '../../repositories/UsersRepository';
+import { UserRepository } from '../../repositories/UserRepository';
 import { RandomCodeGenerator } from '../../utils/RandomCodeGenerator';
 
 export class UniqueCodeService {
-  private usersRepository: UsersRepository;
+  private userRepository: UserRepository;
   private randomCodeGenerator: RandomCodeGenerator;
 
-  constructor(usersRepository: UsersRepository) {
+  constructor(userRepository: UserRepository) {
     this.randomCodeGenerator = new RandomCodeGenerator();
-    this.usersRepository = usersRepository;
+    this.userRepository = userRepository;
   }
 
   /**
@@ -15,7 +15,7 @@ export class UniqueCodeService {
    * @return if code not exists, returns empty string
    */
   private async findCode(code: string): Promise<string> {
-    const user = await this.usersRepository.findUserByCode(code);
+    const user = await this.userRepository.findUserByCode(code);
     if (user) return '';
     return code;
   }

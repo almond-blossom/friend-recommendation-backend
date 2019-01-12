@@ -1,24 +1,24 @@
-import { UsersRepository } from '../../repositories/UsersRepository';
+import { UserRepository } from '../../repositories/UserRepository';
 import { UniqueCodeService } from './UniqueCodeService';
 
 const crypto = require('crypto');
 
 export class RegisterService {
-  private usersRepository: UsersRepository;
+  private userRepository: UserRepository;
   private  uniqueCodeService: UniqueCodeService;
 
-  constructor(usersRepository: UsersRepository, uniqueCodeService: UniqueCodeService) {
-    this.usersRepository = usersRepository;
+  constructor(userRepository: UserRepository, uniqueCodeService: UniqueCodeService) {
+    this.userRepository = userRepository;
     this.uniqueCodeService = uniqueCodeService;
   }
 
   async registerUser(id: string, pass: string, name: string, code: string) {
     if (!id || !pass || !name) return false;
-    const user = await this.usersRepository.findUserById(id);
+    const user = await this.userRepository.findUserById(id);
     if (user) return false;
     const encrypted = crypto.createHash('md5').update(pass).digest('hex');
     const userCode = await this.uniqueCodeService.create();
-    const newUser = await this.usersRepository.insertUser({
+    const newUser = await this.userRepository.insertUser({
       id,
       name,
       pass: encrypted,
@@ -28,8 +28,8 @@ export class RegisterService {
     });
     if (!newUser) return false;
     if (code) {
-      await this.usersRepository.insertFriendByCode(code, id);
-      await this.usersRepository.updateCash(code, 30);
+      await this.userRepository.insertFriendByCode(code, id);
+      await this.userRepository.updateCash(code, 30);
     }
     return true;
   }

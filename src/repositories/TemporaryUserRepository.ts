@@ -1,6 +1,7 @@
+import { UserRepository } from './UserRepository';
 import { User } from '../models/User';
 
-export class UsersRepository {
+export class TemporaryUserRepository implements UserRepository {
   private users: User[] = [
     {
       id: 'test',
@@ -12,15 +13,15 @@ export class UsersRepository {
     },
   ];
 
-  async findUserById(id: string) {
-    return this.users.find(user => user.id === id);
-  }
-
-  async findUserByCode(code: string) {
+  async findUserByCode(code: string): Promise<User> {
     return this.users.find(user => user.code === code);
   }
 
-  async insertUser(user: User) {
+  async findUserById(id: string): Promise<User> {
+    return this.users.find(user => user.id === id);
+  }
+
+  async insertUser(user: User): Promise<number> {
     return this.users.push({
       id: user.id,
       pass: user.pass,
@@ -31,14 +32,13 @@ export class UsersRepository {
     });
   }
 
-  async insertFriendByCode (code: string, newUserId: string) {
+  async insertFriendByCode (code: string, newUserId: string): Promise<void> {
     const user = await this.findUserByCode(code);
     user.friends.push(newUserId);
   }
 
-  async updateCash(code: string, cash: number) {
+  async updateCash(code: string, cash: number): Promise<void> {
     const user = await this.findUserByCode(code);
     user.cash += cash;
   }
-
 }
