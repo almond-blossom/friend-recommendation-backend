@@ -16,4 +16,8 @@ export class App {
       console.log(`App listening on port ${port}`);
     });
   }
+
+  getApp() {
+    return this.app;
+  }
 }
