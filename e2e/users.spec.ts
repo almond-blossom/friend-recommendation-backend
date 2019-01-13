@@ -1,10 +1,33 @@
-import supertest from 'supertest';
+import { default as request } from 'supertest';
 import { App } from '../src/App';
 
-const app = new App().getApp();
+describe('POST /users - 유저 가입', () => {
+  const form = {
+    id: 'fruits',
+    pass: '1234',
+    name: 'apple',
+  };
+  const agent = request(new App().getApp());
+  test('일반 가입', (done: any) => {
+    agent
+      .post('/users')
+      .send(form)
+      .set('Accept', 'application/json')
+      .expect(200)
+      .end(done);
+  });
+  test('같은 아이디 가입 요청 시 400', (done: any) => {
+    agent
+      .post('/users')
+      .send(form)
+      .set('Accept', 'application/json')
+      .expect(400)
+      .end(done);
+  });
+});
 
 describe('/users/:id - 유저 정보 획득', () => {
-  test('200', async () => {
+  test('200', () => {
     const desire: any = {
       id: 'test',
       name: '테스트',
@@ -12,8 +35,7 @@ describe('/users/:id - 유저 정보 획득', () => {
       friends: [],
       cash: 0,
     };
-
-    supertest(app)
+    request(new App().getApp())
       .get('/users/test')
       .set('Accept', 'application/json')
       .expect(200)
