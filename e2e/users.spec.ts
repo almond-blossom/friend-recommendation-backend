@@ -1,25 +1,16 @@
-import { default as request } from 'supertest';
-import { App } from '../src/App';
+import { agent } from './test-context';
 
 process.env.DB_HOST = 'localhost';
 process.env.APP_MODE = 'test';
 
 describe('POST /users - 유저 가입', () => {
-  const server = new App();
 
-  beforeAll(async () => {
-    await server.start();
-  });
-  afterAll(() => {
-    server.close();
-  });
   const form = {
     id: 'fruits',
     pass: '1234',
     name: 'apple',
   };
 
-  const agent = request(new App().getApp());
   test('일반 가입', (done) => {
     agent
       .post('/users')
@@ -28,28 +19,25 @@ describe('POST /users - 유저 가입', () => {
       .expect(200)
       .end(done);
   });
-  test('같은 아이디 가입 요청 시 400', (done) => {
-    agent
+  test('같은 아이디 가입 요청 시 400', async (done) => {
+    await agent
       .post('/users')
       .send(form)
       .set('Accept', 'application/json')
-      .expect(400)
-      .end(done);
+      .expect(200);
+
+    await agent
+      .post('/users')
+      .send(form)
+      .set('Accept', 'application/json')
+      .expect(400);
+
+    done();
   });
 });
 
 describe('/users/:id - 유저 정보 획득', () => {
-  const server = new App();
-
-  beforeAll(async () => {
-    await server.start();
-  });
-  afterAll(() => {
-    server.close();
-  });
-
   test('200', async (done) => {
-    const agent = request(new App().getApp());
     const form = {
       id: 'fruits',
       pass: '1234',
