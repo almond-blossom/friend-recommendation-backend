@@ -1,3 +1,4 @@
+import { User } from '../../models/User';
 import { UserRepository } from '../../repositories/UserRepository';
 import { UniqueCodeService } from './UniqueCodeService';
 
@@ -18,14 +19,14 @@ export class RegisterService {
     if (user) return false;
     const encrypted = crypto.createHash('md5').update(pass).digest('hex');
     const userCode = await this.uniqueCodeService.create();
-    const newUser = await this.userRepository.insertUser({
+    const newUser = await this.userRepository.insertUser(new User({
       id,
       name,
       pass: encrypted,
       code: userCode,
       friends: [],
       cash: code ? 30 : 0,
-    });
+    }));
     if (!newUser) return false;
     if (code) {
       await this.userRepository.insertFriendByCode(code, id);

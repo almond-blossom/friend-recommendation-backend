@@ -19,7 +19,7 @@ export class UserViewController implements Controller {
       id: user.id,
       name: user.name,
       code: user.code,
-      friends: user.friends,
+      friends: user.friends || [],
       cash: user.cash,
     });
   }
