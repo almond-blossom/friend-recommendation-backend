@@ -1,7 +1,7 @@
 FROM node:8-alpine
 
 # Environments
-ENV NDOE_ENV=production
+ENV NODE_ENV=production
 
 # 사용자 및 작업위치 설정
 RUN mkdir -p /usr/src/app
