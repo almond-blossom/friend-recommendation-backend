@@ -9,6 +9,7 @@
     "debug": "node --inspect=0.0.0.0:9222 --nolazy dist/index.js",
     "docker:build": "docker build -t friend-recommendation .",
     "docker:up": "docker-compose -f docker-compose.dev.yml up --build -d",
+    "docker:logs": "docker-compose -f docker-compose.dev.yml logs --follow",
     "test": "jest",
     "test:w": "jest --watch"
   },
