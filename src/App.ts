@@ -16,7 +16,7 @@ export class App {
   }
 
   private async initDatabase() {
-    this.sequelize =  new Sequelize({
+    this.sequelize = new Sequelize({
       database: 'friends',
       dialect: 'mysql',
       host: process.env.DB_HOST,
