@@ -1,7 +1,9 @@
-version: '3'
+version: '3.4'
 services:
-  friend-recommandation:
-    build: .
+  development:
+    build:
+      context: .
+      target: base
     restart: always
     ports:
       - '3000:3000'
